@@ -2,8 +2,8 @@ package com.pax.offline_invoice.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * @projectname offline_invoice
@@ -14,15 +14,14 @@ import java.util.Date;
  * @Created by qiuzepeng
  */
 @Data
-public class InvoiceInformation {
-    private String merchantsNo; //商户编号
-    private String branchNo; //门店编号
-    private String invoiceUrl; //发票地址
+public class TBInvoiceInformation implements Serializable {
+    private String storeNo; //门店编号
+    private String invoiceUrl; //开票地址
     private String orderId; //订单id
     private String orderSource; //订单来源
     private BigDecimal orderAmount; //订单金额
     private String goodsDetail; //商品详细信息
-    private String goodsNum; //商品数量
-    private Date applyTime; //申请时间
+    private String applyTime; //申请时间
+    private String sign; //签名信息
 
 }

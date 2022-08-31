@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2022-08-30 17:58:39
+Date: 2022-08-31 11:00:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -53,9 +53,11 @@ CREATE TABLE `merchants_config` (
   `tax_flag` int(2) NOT NULL DEFAULT '0' COMMENT '含税标志(0:不含税 1:含税)',
   `tax_rate` double(10,0) NOT NULL COMMENT '税率',
   `merchants_tax_num` varchar(50) NOT NULL COMMENT '商户税号',
+  `apply_invoice_person` varchar(30) NOT NULL COMMENT '开票人',
   PRIMARY KEY (`branch_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of merchants_config
 -- ----------------------------
+INSERT INTO `merchants_config` VALUES ('乡村基', '123456', '乡村基鲤鱼池店', '123456789', '航信诺诺', 'https://open.nuonuo.com', '{\"APPKey\":\"SD63236305\",\"APPSecret\":\"SDDED2523BED4643\"}', '铁板牛排', '666666', '1', '0', '339902999999789114', '张三');

@@ -1,15 +1,13 @@
 package com.pax.offline_invoice;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.pax.offline_invoice.entity.MerchantsConfig;
 import nuonuo.open.sdk.NNOpenSDK;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @SpringBootTest
 class OfflineInvoiceApplicationTests {
@@ -130,13 +128,17 @@ class OfflineInvoiceApplicationTests {
     }
     @Test
     void stringTest(){
-        String xx = "cb213dcf69fd0aep92c47430336fa2030e181bbf0d8c01f";
-        System.out.println(xx.length());
-        MerchantsConfig merchantsConfig = new MerchantsConfig();
-        merchantsConfig.setMerchantsName("23");
-        merchantsConfig.getMerchantsName();
-        System.out.println(merchantsConfig.getMerchantsName());
+        String xx = "{\"code\":\"E0000\",\"describe\":\"同步成功\",\"result\":{\"ewmUrl\":\"http://nnfpbox.nuonuocs.cn/invoice/scan/k.do?jc=NDA1NDA4OTA3MjA1NnhwZXhrZw==&on=NjEwMDA5OTA1MjA1NTA1NTA1NzA5ODA5NzA0OTA1NzEwMDEwMDA1MjA0OTEwMjA1NjA5NzA1NDA0OTEwMDA5NzA0OTA1NjA5NzA1MDEwMjA1NDA1MjEwMjEwMTEwMTA1MjA1NjA5NzA5NzA0OTA0ODA5ODA1MDA1MTA1MTA1NTA1MjA5OTA1MjA0OTA1MjA0OTA5ODA1NDA5NzA1NjA1MzA5ODA1MDA5OTA1NDA1MTA0ODA5NzA1MDA1MWtmeWtmZg==&flag=MzA5OTEwODEwNTEwMWtreWtrcA==\"}}";
+        JSONObject jsonObject = JSON.parseObject(xx);
+        String result = JSON.parseObject(jsonObject.get("result").toString()).get("ewmUrl").toString();
+        System.out.println(result);
+        System.out.println(jsonObject.get("result"));
+        System.out.println(jsonObject.get("code"));
     }
+    @Test
+    void timeTest(){
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
+    }
 
 }

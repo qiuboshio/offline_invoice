@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pax.offline_invoice.dao.MerchantsConfigDao">
+
+    <select id="findById" resultType="com.pax.offline_invoice.entity.TBMerchantsConfig" parameterType="string">
+        select * from t_b_merchants_config where store_id = #{storeId}
+    </select>
+</mapper>
