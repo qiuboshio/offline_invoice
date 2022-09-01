@@ -1,6 +1,7 @@
 package com.pax.offline_invoice.controller;
 
 import com.pax.offline_invoice.util.QrUtil.QrCodeUtil;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/QRCode")
+@Api( description = "生成二维码功能")
 public class QRCodeController {
     @GetMapping("/generate")
     public String QRCode(){
@@ -31,7 +33,7 @@ public class QRCodeController {
         //门店id
         String storeId = "123456789";
         //订单金额
-        String price = "32525.23";
+        String price = "32.23";
         //商品数量
         String num = "1";
         //签名

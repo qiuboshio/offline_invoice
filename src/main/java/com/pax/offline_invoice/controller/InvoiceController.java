@@ -7,6 +7,9 @@ import com.pax.offline_invoice.entity.TBInvoiceInformation;
 import com.pax.offline_invoice.entity.TBMerchantsConfig;
 import com.pax.offline_invoice.service.InvoiceInformationService;
 import com.pax.offline_invoice.service.MerchantsConfigService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import nuonuo.open.sdk.NNOpenSDK;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +36,19 @@ import java.util.UUID;
 @ResponseBody
 @RequestMapping("/invoice")
 @Slf4j
+@Api( description = "开票功能")
 public class InvoiceController {
     @Autowired
     private MerchantsConfigService merchantsConfigService;
     @Autowired
     private InvoiceInformationService invoiceInformationService;
     @GetMapping("/find")
-    public ResultTemplate QRCode(@RequestParam("storeId")String storeId, @RequestParam("price")BigDecimal price,
-                       @RequestParam("num")Integer num,@RequestParam("sign") String sign,@RequestParam("orderNo")String orderNo){
+    @ApiOperation(value = "请求开票")
+    public ResultTemplate QRCode(@ApiParam(value = "门店标识",required = true) @RequestParam(value = "storeId")String storeId,
+                                 @ApiParam(value = "订单金额",required = true) @RequestParam("price")BigDecimal price,
+                                 @ApiParam(value = "商品数量（始终为1）",required = true,defaultValue = "1") @RequestParam("num")Integer num,
+                                 @ApiParam(value = "签名信息",required = true) @RequestParam("sign") String sign,
+                                 @ApiParam(value = "订单号",required = true) @RequestParam("orderNo")String orderNo){
         /**
          * @MethodName: QRCode
          * @Description: 获取申请发票的参数信息  http://192.168.10.250:8888/invoice/find
@@ -79,6 +87,15 @@ public class InvoiceController {
         jsonObject.put("num",num);
         jsonObject.put("price",price);
         map.put("detail",JSON.parseArray("["+jsonObject+"]"));
+        //=====以下需要自填的参数
+        //买方抬头
+        map.put("buyerName","百富计算机");
+        //买方税号
+        map.put("buyerTaxNum","339901999999119");
+        //申请人电话
+        map.put("notifyPhone","17783501904");
+        //通知交付邮箱
+        map.put("notifyEmail","915878367@qq.com");
         //获取诺诺开发票返回结果
         String json = sdk.sendPostSyncRequest(url, senid, appKey, appSecret, token, taxnum, method, String.valueOf(map));
         //组装返回信息
@@ -108,6 +125,7 @@ public class InvoiceController {
             resultTemplate.setQrCodeUrl(invoiceUrl);
         }
         System.out.println(json);
+        System.out.println(resultTemplate.getQrCodeUrl());
         return resultTemplate;
 
     }

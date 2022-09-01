@@ -1,5 +1,7 @@
 package com.pax.offline_invoice.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,7 +16,9 @@ import java.math.BigDecimal;
  * @Created by qiuzepeng
  */
 @Data
+@ApiModel(value="发票信息对象",description = "发票信息表")
 public class TBInvoiceInformation implements Serializable {
+    @ApiModelProperty(value = "门店编号")
     private String storeNo; //门店编号
     private String invoiceUrl; //开票地址
     private String orderId; //订单id

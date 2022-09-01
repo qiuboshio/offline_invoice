@@ -1,6 +1,7 @@
 package com.pax.offline_invoice.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.annotations.Api;
 import nuonuo.open.sdk.NNOpenSDK;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import java.util.UUID;
  * 诺诺离线扫码接口
  */
 @RestController
+@Api( description = "直连调试")
 public class SdkPostController {
 
     @GetMapping("/sdkPostController")
@@ -33,17 +35,49 @@ public class SdkPostController {
         //随机生成64位uuid作为订单号
         String orderNo = UUID.randomUUID().toString().replace("-", "")+UUID.randomUUID().toString().replace("-", "");
         String content1 = "{\n" +
+                "  \"buyerTel\": \"16666666666\",\n" +
+                "  \"listFlag\": \"0\",\n" +
+                "  \"departmentId\": \"\",\n" +
+                "  \"clerkId\": \"\",\n" +
+                "  \"remark\": \"这是备注\",\n" +
+                "  \"checker\": \"王五\",\n" +
+                "  \"buyerInfoEditAble\": \"0\",\n" +
+                "  \"payee\": \"李四\",\n" +
+                "  \"buyerAddress\": \"文一路999999号\",\n" +
+                "  \"buyerTaxNum\": \"339901999999119\",\n" +
+                "  \"invoiceLine\": \"p\",\n" +
+                "  \"salerAccount\": \"中国银行9999999999\",\n" +
+                "  \"orderNo\": \"cb213e4cf69fd0aea92c47430336fa2030e181bbf0d8c01f\",\n" +
+                "  \"salerTel\": \"0571-88888888\",\n" +
+                "  \"callBackUrl\": \"\",\n" +
                 "  \"invoiceDate\": \"2018-04-26 18:51:41\",\n" +
+                "  \"buyerName\": \"张三丰有限公司\",\n" +
+                "  \"notifyPhone\": \"13892827272\",\n" +
                 "  \"orderTotal\": \"11\",\n" +
+                "  \"salerAddress\": \"杭州文一路888号\",\n" +
+                "  \"clerk\": \"张三\",\n" +
+                "  \"buyerAccount\": \"中国银行23434554535\",\n" +
+                "  \"productOilFlag\": \"0\",\n" +
                 "  \"salerTaxNum\": \"339902999999789113\",\n" +
+                "  \"listName\": \"\",\n" +
                 "  \"detail\": [\n" +
                 "    {\n" +
+                "      \"specType\": \"规格型号\",\n" +
+                "      \"favouredPolicyName\": \"\",\n" +
                 "      \"num\": \"1\",\n" +
+                "      \"favouredPolicyFlag\": \"0\",\n" +
                 "      \"taxRate\": \"0.13\",\n" +
+                "      \"unit\": \"kg\",\n" +
+                "      \"deduction\": \"\",\n" +
+                "      \"zke\": \"\",\n" +
                 "      \"price\": \"8\",\n" +
+                "      \"zeroRateFlag\": \"\",\n" +
+                "      \"goodsCode\": \"1090511030000000000\",\n" +
                 "      \"goodsName\": \"测试商品\",\n" +
+                "      \"taxIncludedAmount\": \"100\"\n" +
                 "    }\n" +
                 "  ],\n" +
+                "  \"notifyEmail\": \"19883@qq.com\"\n" +
                 "}";
         JSONObject jsonObject = JSONObject.parseObject(content1);
         jsonObject.put("orderNo",orderNo);
