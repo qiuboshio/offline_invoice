@@ -6,6 +6,8 @@ import nuonuo.open.sdk.NNOpenSDK;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -138,6 +140,29 @@ class OfflineInvoiceApplicationTests {
     @Test
     void timeTest(){
         System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+    }
+    @Test
+    void messageDigestTest() throws NoSuchAlgorithmException {
+        MessageDigest instance = MessageDigest.getInstance("md5");
+        String UUID = java.util.UUID.randomUUID().toString();
+        String pwd = "123456";
+        String name = UUID+pwd;
+        System.out.println("盐值："+UUID);
+        System.out.println("密码："+pwd);
+        System.out.println("盐值加密："+name);
+        instance.update(name.getBytes());
+        instance.reset();
+        byte[] digest = instance.digest(name.getBytes());
+        StringBuilder sb = new StringBuilder();
+        for (byte b : digest) {
+            String row = Integer.toHexString(b&0xff);
+            if(row.length()==1){
+                row = "0" + row;
+            }
+            sb.append(row);
+        }
+        System.out.println("加密后："+sb.toString());
 
     }
 

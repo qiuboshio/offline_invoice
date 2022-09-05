@@ -7,6 +7,7 @@ import com.pax.offline_invoice.entity.TBInvoiceInformation;
 import com.pax.offline_invoice.entity.TBMerchantsConfig;
 import com.pax.offline_invoice.service.InvoiceInformationService;
 import com.pax.offline_invoice.service.MerchantsConfigService;
+import com.pax.offline_invoice.util.GlobalParamUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,14 +36,14 @@ import java.util.UUID;
 @ResponseBody
 @RequestMapping("/invoice")
 @Slf4j
-@Api( description = "开票功能")
+@Api(value = "发票功能" ,tags = "发票相关接口")
 public class InvoiceController {
     @Autowired
     private MerchantsConfigService merchantsConfigService;
     @Autowired
     private InvoiceInformationService invoiceInformationService;
     @GetMapping("/find")
-    @ApiOperation(value = "请求开票")
+    @ApiOperation(value = "请求开票" , notes = "返回开票地址")
     public ResultTemplate QRCode(@ApiParam(value = "门店标识",required = true) @RequestParam(value = "storeId")String storeId,
                                  @ApiParam(value = "订单金额",required = true) @RequestParam("price")BigDecimal price,
                                  @ApiParam(value = "商品数量（始终为1）",required = true,defaultValue = "1") @RequestParam("num")Integer num,
@@ -64,12 +64,15 @@ public class InvoiceController {
         TBMerchantsConfig merchantsConfig = merchantsConfigService.findById(storeId);
         NNOpenSDK sdk = NNOpenSDK.getIntance();
         String taxnum = merchantsConfig.getMerchantsTaxNum();//ISV下授权商户税号
-        String appKey = "SD63236305";
-        String appSecret = "SDDED2523BED4643";
-        String method = "nuonuo.ElectronInvoice.saveScanTemp";//API方法名
+        String method = GlobalParamUtil.OfflineMethod;//API方法名
         String token = "2d484e**************pdui";//访问令牌
-        String url = "https://sandbox.nuonuocs.cn/open/v1/services"; //sdk请求地址（测试环境）
+        String url = GlobalParamUtil.OfflineUrl; //sdk请求地址
         String senid = UUID.randomUUID().toString().replace("-", ""); // 唯一标识，由企业自己生成32位随机码
+        //String appKey = "SD63236305";
+        //String appSecret = "SDDED2523BED4643";
+        JSONObject jsonObject2 = JSONObject.parseObject(merchantsConfig.getCredentials());
+        String appKey = (String) jsonObject2.get("appKey");
+        String appSecret = (String) jsonObject2.get("appSecret");
         JSONObject map = new JSONObject();
         //订单号
         map.put("orderNo",orderNo);
@@ -79,7 +82,7 @@ public class InvoiceController {
         //销售方税号
         map.put("salerTaxNum",merchantsConfig.getMerchantsTaxNum());
         //开票人姓名
-        map.put("clerk",merchantsConfig.getApplyInvoicePerson());
+        //map.put("clerk",merchantsConfig.getApplyInvoicePerson());
         //订单金额
         map.put("orderTotal",price);
         //商品详细信息

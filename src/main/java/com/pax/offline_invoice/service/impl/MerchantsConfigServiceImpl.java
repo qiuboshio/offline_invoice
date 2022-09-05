@@ -33,4 +33,21 @@ public class MerchantsConfigServiceImpl implements MerchantsConfigService {
         return merchantsConfig;
 
     }
+
+    @Override
+    public void add(TBMerchantsConfig tbMerchantsConfig) {
+        merchantsConfigDao.insert(tbMerchantsConfig);
+    }
+
+    @Override
+    public int update(TBMerchantsConfig tbMerchantsConfig) {
+        int i = merchantsConfigDao.updateById(tbMerchantsConfig);
+        return i;
+    }
+
+    @Override
+    public int delete(String storeId) {
+        int i = merchantsConfigDao.deleteById(storeId);
+        return i;
+    }
 }

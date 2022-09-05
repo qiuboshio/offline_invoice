@@ -6,7 +6,7 @@ import com.pax.offline_invoice.entity.TBMerchantsConfig;
 /**
  * @projectname offline_invoice
  * @Classname MerchantsConfigDao
- * @Description TODO
+ * @Description 商户信息数据层
  * @Version 1.0.0
  * @Date 2022/8/31 9:43
  * @Created by qiuzepeng
