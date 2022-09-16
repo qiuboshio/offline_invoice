@@ -15,3 +15,9 @@ mybatis-plus:
 logging:
   level:
     com.pax.offline_invoice.dao: debug    #打印出mapper执行的sql语句
+#自定义配置参数
+#jscode2session: https://api:weixin:qq:com/sns/jscode2session
+#appId: wxe52d0f50f14898dd
+#secret: 8bbcfb9c34454454b0e14f0457441736
+
+

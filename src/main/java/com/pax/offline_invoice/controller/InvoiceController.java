@@ -42,8 +42,8 @@ public class InvoiceController {
     private MerchantsConfigService merchantsConfigService;
     @Autowired
     private InvoiceInformationService invoiceInformationService;
-    @GetMapping("/find")
-    @ApiOperation(value = "请求开票" , notes = "返回开票地址")
+    @GetMapping("/apply")
+    @ApiOperation(value = "请求开票" , notes = "返回开票地址" ,httpMethod = "GET")
     public ResultTemplate QRCode(@ApiParam(value = "门店标识",required = true) @RequestParam(value = "storeId")String storeId,
                                  @ApiParam(value = "订单金额",required = true) @RequestParam("price")BigDecimal price,
                                  @ApiParam(value = "商品数量（始终为1）",required = true,defaultValue = "1") @RequestParam("num")Integer num,
@@ -51,7 +51,7 @@ public class InvoiceController {
                                  @ApiParam(value = "订单号",required = true) @RequestParam("orderNo")String orderNo){
         /**
          * @MethodName: QRCode
-         * @Description: 获取申请发票的参数信息  http://192.168.10.250:8888/invoice/find
+         * @Description: 获取申请发票的参数信息  http://192.168.10.250:8888/invoice/apply
          * @Author: qiuzepeng
          * @Date: 2022/8/31 11:37
          * @param storeId: 门店标识
