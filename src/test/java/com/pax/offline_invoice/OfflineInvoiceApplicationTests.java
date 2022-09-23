@@ -17,8 +17,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @SpringBootTest
@@ -276,11 +274,7 @@ class OfflineInvoiceApplicationTests {
     }
     @Test
     void t1(){
-        LocalDateTime now = LocalDateTime.now();
-        String format = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        System.out.println(format);
-        System.out.println(now);
-        System.out.println(timestamp);
+        String body = String.format("{\"signature\":\"%s\"}","测试");
+        System.out.println(body);
     }
 }

@@ -64,10 +64,11 @@ public class WeixinControler {
     @GetMapping("/phone")
     public String applyPhone(HttpServletRequest request){
         LinkedMultiValueMap<String, String> request1 = new LinkedMultiValueMap<>();
-        request1.set("access_token","60_eNZxjB8eMsgFyrT7RmmeR8tvHamTTio9SpBkmOwTI9z3l47Rx-WCns6rW0xbFv5ZDuV-r_itYtLmvHDC4JYjsCrSv6dCjrZw8WFEqCZuYot-YiawuGoPrGRdsGA3WwejzcX0pEMNFjO5mfYZUPVhABAGBH");
-        request1.set("code","013nnrGa1xXJSD0usgHa19TzlD4nnrGA");
+        String access_token = "60_0IWHyAp7Xx1IOieKtqGCGpJrm8isv0EcpwhzR97YE-F3yKb8UOs1igZxfzsVoCTWzuC03LemBnSjjoKG6qYzlYJVk2P4gNhFHcbzJ4c9h7dTg8J_kunrVDIbUoVPYP4IonwLSYT6hSzAF-v3XHIgADAPZA";
+       // request1.set("access_token","60_eNZxjB8eMsgFyrT7RmmeR8tvHamTTio9SpBkmOwTI9z3l47Rx-WCns6rW0xbFv5ZDuV-r_itYtLmvHDC4JYjsCrSv6dCjrZw8WFEqCZuYot-YiawuGoPrGRdsGA3WwejzcX0pEMNFjO5mfYZUPVhABAGBH");
+        //request1.set("code","0134iy0w3aiVeZ2P4e2w36G0yc04iy0p");
         String url = phone;
-        String s = restTemplate.postForObject(url, request1, String.class);
+        String s = restTemplate.postForObject(url+"?access_token="+access_token+"&code=0134iy0w3aiVeZ2P4e2w36G0yc04iy0p", request1, String.class);
 
         request.getParameterNames();
         Enumeration enu=request.getParameterNames();
